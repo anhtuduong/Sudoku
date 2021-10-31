@@ -13,9 +13,7 @@ public class Block extends StackPane {
     protected Text valueText;
     protected Rectangle rectangle;
 
-    private static int currentSelected_X;
-    private static int currentSelected_Y;
-
+    protected boolean isClicked;
 
     // Constructor
     public Block() {
@@ -33,9 +31,9 @@ public class Block extends StackPane {
 
         // setup rectangle
         rectangle = new Rectangle();
-        rectangle.setWidth(Setting.BOX_SIZE);
-        rectangle.setHeight(Setting.BOX_SIZE);
-        rectangle.setFill(Setting.BOX_COLOR_INITIAL);
+        rectangle.setWidth(Game.BOX_SIZE);
+        rectangle.setHeight(Game.BOX_SIZE);
+        rectangle.setFill(Game.BOX_COLOR_INITIAL);
         rectangle.setStroke(Color.BLACK);
         rectangle.setStrokeWidth(1);
         getChildren().add(rectangle);
@@ -43,7 +41,7 @@ public class Block extends StackPane {
         // setup text
         valueText = new Text();
         valueText.setFont(Font.font(null, FontWeight.BOLD, 20));
-        valueText.setFill(Setting.TEXT_COLOR_INITIAL);
+        valueText.setFill(Game.TEXT_COLOR_INITIAL);
         getChildren().add(valueText);
 
     }
@@ -53,16 +51,8 @@ public class Block extends StackPane {
             setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if(Board.getColumnIndex(Block.this) != currentSelected_X && Board.getRowIndex(Block.this) != currentSelected_Y) {
-                        rectangle.setFill(Setting.BOX_COLOR_SELECTED);
-                        currentSelected_X = Board.getColumnIndex(Block.this);
-                        currentSelected_Y = Board.getRowIndex(Block.this);
-                    }
-                    else {
-                        rectangle.setFill(Setting.BOX_COLOR_INITIAL);
-                    }
-
-
+                    setColor(Game.BOX_COLOR_FIXED);
+                    valueText.setFill(Game.TEXT_COLOR_FIXED);
                 }
             });
 
@@ -73,6 +63,10 @@ public class Block extends StackPane {
     public void setValue(int value) {
         this.value = value;
         valueText.setText(Integer.toString(this.value));
+    }
+
+    public void setColor(Color color) {
+        rectangle.setFill(color);
     }
 
 }
