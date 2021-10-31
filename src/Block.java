@@ -13,7 +13,6 @@ public class Block extends StackPane {
     protected Text valueText;
     protected Rectangle rectangle;
 
-    protected boolean isClicked;
 
     // Constructor
     public Block() {
@@ -63,6 +62,10 @@ public class Block extends StackPane {
     public void setValue(int value) {
         this.value = value;
         valueText.setText(Integer.toString(this.value));
+    }
+
+    public int getValue() {
+        return value;
     }
 
     public void setColor(Color color) {
